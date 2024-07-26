@@ -23,19 +23,69 @@ const users = [
 
 const products = [
   {
-    name: "Product 1",
-    description: "Description for product 1",
-    price: 10.99,
+    name: "Apple",
+    description: "Fresh red apples",
+    price: 1.99,
   },
   {
-    name: "Product 2",
-    description: "Description for product 2",
-    price: 19.99,
+    name: "Banana",
+    description: "Ripe yellow bananas",
+    price: 0.99,
   },
   {
-    name: "Product 3",
-    description: "Description for product 3",
-    price: 25.99,
+    name: "Orange",
+    description: "Juicy oranges",
+    price: 1.49,
+  },
+  {
+    name: "Milk",
+    description: "1 liter of whole milk",
+    price: 1.29,
+  },
+  {
+    name: "Bread",
+    description: "Whole grain bread",
+    price: 2.49,
+  },
+  {
+    name: "Eggs",
+    description: "Dozen of organic eggs",
+    price: 3.49,
+  },
+  {
+    name: "Chicken Breast",
+    description: "Boneless chicken breast",
+    price: 5.99,
+  },
+  {
+    name: "Rice",
+    description: "1 kg of basmati rice",
+    price: 2.99,
+  },
+  {
+    name: "Broccoli",
+    description: "Fresh broccoli",
+    price: 1.89,
+  },
+  {
+    name: "Carrots",
+    description: "1 kg of carrots",
+    price: 1.49,
+  },
+  {
+    name: "Tomatoes",
+    description: "Fresh tomatoes",
+    price: 2.99,
+  },
+  {
+    name: "Potatoes",
+    description: "1 kg of potatoes",
+    price: 1.99,
+  },
+  {
+    name: "Cheese",
+    description: "Cheddar cheese",
+    price: 4.49,
   },
 ];
 
