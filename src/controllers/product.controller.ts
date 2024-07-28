@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Product from "../models/product.model";
+import { buildCriteria } from "../helpers/product.helper";
 
 export async function getProductsCount(req: Request, res: Response) {
   try {
@@ -15,8 +16,10 @@ export async function getProductsCount(req: Request, res: Response) {
 }
 
 export async function getProducts(req: Request, res: Response) {
+  const { query } = req;
+  const criteria = buildCriteria(query);
   try {
-    const products = await Product.find({});
+    const products = await Product.find(criteria);
     res.status(200).json(products);
   } catch (error: any) {
     console.log(error);
