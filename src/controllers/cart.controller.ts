@@ -15,25 +15,25 @@ export async function getCarts(req: CustomRequest, res: Response) {
 }
 
 export async function createNewCartItem(req: CustomRequest, res: Response) {
-  const { productId: newproductId } = req.body;
+  const { productId } = req.body;
 
-  if (!newproductId) {
+  if (!productId) {
     return res
       .status(404)
-      .json({ message: `Product not found with ID: ${newproductId}` });
+      .json({ message: `Product not found with ID: ${productId}` });
   }
 
   try {
     let updatedCart = await Cart.findOneAndUpdate(
       { user: req.userId },
-      { $push: { products: newproductId } },
+      { $push: { products: productId } },
       { new: true }
     ).populate("products");
 
     if (!updatedCart) {
       const newCart = await Cart.create({
         user: req.userId,
-        products: [newproductId],
+        products: [productId],
       });
       updatedCart = await Cart.findById(newCart._id).populate("products");
     }
@@ -49,6 +49,38 @@ export async function createNewCartItem(req: CustomRequest, res: Response) {
         .json({ message: "Validation error", details: error.errors });
     } else {
       res.status(500).json({ message: "Error while creating new cart item" });
+    }
+  }
+}
+
+export async function deleteCartItem(req: CustomRequest, res: Response) {
+  const { productId } = req.body;
+  try {
+    let updatedCart = await Cart.findOneAndUpdate(
+      { user: req.userId },
+      { $pull: { products: productId } },
+      { new: true }
+    ).populate("products");
+
+    if (!updatedCart) {
+      const newCart = await Cart.create({
+        user: req.userId,
+        products: [productId],
+      });
+      updatedCart = await Cart.findById(newCart._id).populate("products");
+    }
+
+    res.status(200).json(updatedCart);
+  } catch (error: any) {
+    console.log(error);
+    if (error.name === "CastError" && error.kind === "ObjectId") {
+      res.status(400).json({ message: "Invalid product ID" });
+    } else if (error.name === "ValidationError") {
+      res
+        .status(400)
+        .json({ message: "Validation error", details: error.errors });
+    } else {
+      res.status(500).json({ message: "Error while deleting new cart item" });
     }
   }
 }
